@@ -1,3 +1,4 @@
+
 #define _CRT_SECURE_NO_WARNINGS  // Disable Visual Studio security warnings
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,6 +7,7 @@
 int main(int argc, char* argv[]) {
     int numUsers;
     
+    // STEP 1: Get user input (command line or interactive)
     // Check if command line argument is provided
     if (argc == 2) {
         // Use command line argument
@@ -23,12 +25,13 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // Initialize the queue
+    // STEP 2: Initialize empty queue (head = NULL, tail = NULL)
     Queue q;
     initializeQueue(&q);
     printf("Queue initialized successfully.\n");
 
-    // Add random users and check for errors
+    // STEP 3: Add random users to queue (enqueue operation)
+    // Each user gets random username, level (1-60), and faction
     printf("\nAdding %d random users to the queue...\n", numUsers);
     if (addRandomUsers(&q, numUsers) != 0) {
         printf("Error: Failed to add users to the queue.\n");
@@ -36,20 +39,23 @@ int main(int argc, char* argv[]) {
     }
     printf("Successfully added %d users to the queue.\n", numUsers);
 
-    // Dequeue and print each user
+    // STEP 4: Demonstrate FIFO behavior - dequeue all users
+    // Users will be removed in the same order they were added
     printf("\n=== Dequeuing all users ===\n");
     printf("-----------------------------------------------------------\n");
 
     int userCount = 0;
     while (!isQueueEmpty(&q)) {
-        User u = dequeue(&q);
+        User u = dequeue(&q);  // Remove from front (FIFO)
         userCount++;
 
+        // Display user information
         printf("User #%d:\n", userCount);
         printf("  Username: %s\n", u.username);
         printf("  Level:    %d\n", u.level);
         printf("  Faction:  ");
 
+        // Display faction name based on enum value
         if (u.faction == RED)   printf("Red\n");
         else if (u.faction == BLUE)  printf("Blue\n");
         else if (u.faction == GREEN) printf("Green\n");
