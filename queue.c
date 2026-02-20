@@ -21,12 +21,12 @@ void enqueue(Queue* q, User user) {
     // Allocate memory for the new node
     QueueNode* newNode = (QueueNode*)malloc(sizeof(QueueNode));
     if (newNode == NULL) {
-        printf("Error: Memory allocation failed in enqueue\n");
-        return;
+        fprintf(stderr, "Error: Memory allocation failed in enqueue\n");
+        exit(EXIT_FAILURE);
     }
     
-    newNode->user = user;
-    newNode->link = NULL;
+    newNode->data = user;
+    newNode->next = NULL;
 
     if (isQueueEmpty(q)) {
         // First node: both head and tail point to it
@@ -35,18 +35,23 @@ void enqueue(Queue* q, User user) {
     }
     else {
         // Attach to rear and update tail
-        q->tail->link = newNode;
+        q->tail->next = newNode;
         q->tail = newNode;
     }
 }
 
 // Remove and return the user at the front of the queue
 User dequeue(Queue* q) {
+    if (isQueueEmpty(q)) {
+        fprintf(stderr, "Error: Cannot dequeue from an empty queue\n");
+        exit(EXIT_FAILURE);
+    }
+    
     QueueNode* temp = q->head;
-    User       dequeuedUser = temp->user;
+    User       dequeuedUser = temp->data;
 
     // Move head forward
-    q->head = q->head->link;
+    q->head = q->head->next;
 
     // If queue is now empty, reset tail as well
     if (q->head == NULL) {

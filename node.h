@@ -18,8 +18,8 @@ typedef struct {
 
 // A single node in the queue
 typedef struct QueueNode {
-    User              user; // User data stored in this node
-    struct QueueNode* link; // Pointer to the next queue node
+    User              data; // User data stored in this node
+    struct QueueNode* next; // Pointer to the next queue node
 } QueueNode;
 
 // Queue with head (front) and tail (rear) pointers
