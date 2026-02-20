@@ -1,0 +1,27 @@
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.sln.docstates
+*.vcxproj.user
+
+# Build outputs
+ARM64/
+x64/
+Debug/
+Release/
+*.exe
+*.ilk
+*.obj
+*.pdb
+
+# Compiled binaries
+game_queue
+main
+
+# macOS
+.DS_Store
+
+# Temporary files
+*.tmp
+*.log
