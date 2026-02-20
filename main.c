@@ -2,9 +2,13 @@
 #define _CRT_SECURE_NO_WARNINGS  // Disable Visual Studio security warnings
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "node.h"
 
 int main(int argc, char* argv[]) {
+    // Seed random number generator (only once at program start)
+    srand((unsigned int)time(NULL));
+    
     int numUsers;
     
     // STEP 1: Get user input (command line or interactive)

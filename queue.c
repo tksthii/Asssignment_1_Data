@@ -70,8 +70,6 @@ int addRandomUsers(Queue* q, int count) {
     const char charset[] = "abcdefghijklmnopqrstuvwxyz0123456789";
     size_t charsetSize = strlen(charset);
 
-    srand((unsigned int)time(NULL)); // Seed random number generator
-
     for (int i = 0; i < count; i++) {
         User newUser;
 
