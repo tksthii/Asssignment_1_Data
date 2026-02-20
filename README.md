@@ -1,190 +1,77 @@
 # Assignment 1: Queue Data Structure for Game Users
 
 ## Description
-Implementation of a queue data structure using linked nodes to manage game users. Each user has a unique username, level (1-60), and faction (Red, Blue, or Green).
+Implementation of a queue (FIFO) data structure using linked nodes to manage game users.
 
-## Summary
+## Code Summary
 
-### Code Explanation
+This project implements a **queue data structure** from scratch using linked nodes. The queue follows FIFO (First In First Out) principle - the first user added is the first one removed.
 
-This project implements a **queue (FIFO - First In First Out)** data structure from scratch using **linked nodes** to manage game users in a multiplayer game environment. The implementation demonstrates fundamental data structure concepts including:
+**How It Works:**
+1. **Initialization**: Empty queue with `head = NULL` and `tail = NULL`
+2. **Enqueue**: New users are added to the rear (tail) of the queue in O(1) time
+3. **Dequeue**: Users are removed from the front (head) of the queue in O(1) time
+4. **Memory Management**: Each node is dynamically allocated with `malloc()` and freed with `free()` to prevent memory leaks
 
-**Core Components:**
-
-1. **Data Structures (node.h):**
-   - `Faction` enum: Represents three team types (RED, BLUE, GREEN)
-   - `User` struct: Stores game player information (username, level, faction)
-   - `QueueNode` struct: Linked list node containing User data and pointer to next node
-   - `Queue` struct: Maintains head (front) and tail (rear) pointers for efficient operations
-
-2. **Queue Operations (queue.c):**
-   - **initializeQueue()**: Sets up empty queue with NULL head/tail pointers
-   - **isQueueEmpty()**: Checks if queue has any elements
-   - **enqueue()**: Adds new user to the rear of queue (O(1) time complexity)
-   - **dequeue()**: Removes and returns user from front of queue (O(1) time complexity)
-   - **addRandomUsers()**: Generates N random users with unique attributes
-
-3. **Testing Program (main.c):**
-   - Accepts user count via command line or interactive input
-   - Initializes queue and populates with random users
-   - Demonstrates FIFO behavior by dequeuing all users in order
-   - Displays each user's complete information
-
-### Functionality Demonstration
-
-**Step 1: Queue Initialization**
-```
-Queue q;
-initializeQueue(&q);
-```
-Creates empty queue with head = NULL, tail = NULL
-
-**Step 2: Random User Generation**
-```
-addRandomUsers(&q, 5);
-```
-Generates 5 users with:
-- Random usernames: e.g., "a3k5m9x2b7" (10 alphanumeric chars)
-- Random levels: 1-60 (e.g., 42, 15, 58)
-- Random factions: RED, BLUE, or GREEN
-
-**Step 3: FIFO Dequeue Process**
-```
-while (!isQueueEmpty(&q)) {
-    User u = dequeue(&q);
-    // Display user info
-}
-```
-
-**Example Execution Flow:**
+**Functionality Demonstration:**
 ```
 Input: ./game_queue 3
 
 Process:
-1. Initialize empty queue: [empty]
-2. Enqueue User #1 (Alice, L:25, RED): [User1]
-3. Enqueue User #2 (Bob, L:40, BLUE): [User1 -> User2]
-4. Enqueue User #3 (Charlie, L:10, GREEN): [User1 -> User2 -> User3]
+1. Initialize empty queue
+2. Generate 3 random users:
+   - User1: username="a3k5m9x2b7", level=42, faction=BLUE
+   - User2: username="z8p1n4q6y0", level=15, faction=RED  
+   - User3: username="m7w2q5t8n1", level=58, faction=GREEN
 
-Output (FIFO order):
-User #1: Alice, L:25, RED     (first in, first out)
-User #2: Bob, L:40, BLUE      
-User #3: Charlie, L:10, GREEN (last in, last out)
+3. Enqueue in order: [User1] → [User1, User2] → [User1, User2, User3]
+
+4. Dequeue in FIFO order:
+   First out: User1 (a3k5m9x2b7, L:42, BLUE)
+   Second out: User2 (z8p1n4q6y0, L:15, RED)
+   Last out: User3 (m7w2q5t8n1, L:58, GREEN)
 ```
 
-**Key Features Demonstrated:**
-- **FIFO Ordering**: Users are dequeued in exact enqueue order
-- **Dynamic Memory**: Queue grows/shrinks with malloc/free
-- **O(1) Operations**: Both enqueue and dequeue are constant time
-- **Error Handling**: Validates input and checks memory allocation
-- **Randomization**: Generates diverse user profiles for testing
-- **Clean Separation**: Data structures, operations, and testing are well-organized
-
-**Use Case Example:**
-In a multiplayer game matchmaking system, this queue ensures:
-- Players join lobby in arrival order (fairness)
-- First player to queue gets matched first
-- System handles dynamic player counts efficiently
-- All player data (username, level, faction) is preserved
-
-## Files
-- **node.h** - Header file containing all struct definitions and function declarations
-- **queue.c** - Implementation of queue operations (initialize, enqueue, dequeue, isEmpty)
-- **main.c** - Testing program demonstrating queue functionality
-
-## Features
-- **Queue Operations:**
-  - Initialize empty queue
-  - Check if queue is empty
-  - Enqueue (add to rear)
-  - Dequeue (remove from front)
-  - FIFO (First In First Out) behavior
-
-- **Random User Generation:**
-  - 10-character alphanumeric usernames
-  - Random levels between 1-60
-  - Random faction selection (Red/Blue/Green)
-
-- **Error Handling:**
-  - Input validation
-  - Memory allocation checks
-  - Command line argument support
+**Key Implementation Details:**
+- `QueueNode` contains `User data` (embedded by value) and `next` pointer
+- Both `enqueue()` and `dequeue()` operate in constant time O(1)
+- Safety checks prevent crashes (empty queue check, malloc validation)
+- Random user generation creates 10-char alphanumeric usernames, levels 1-60, and random factions
 
 ## Requirements
-- C compiler (gcc or Visual Studio)
-- Standard C libraries
+1. **Data Structures:**
+   - `User` struct: username (10 chars), level (1-60), faction (RED/BLUE/GREEN)
+   - `QueueNode` struct: contains `User data` and `next` pointer
+   - `Queue` struct: head and tail pointers
 
-## Compilation
+2. **Queue Operations:**
+   - `initializeQueue()` - Initialize empty queue
+   - `isQueueEmpty()` - Check if queue is empty
+   - `enqueue()` - Add user to rear (O(1))
+   - `dequeue()` - Remove user from front (O(1))
+   - `addRandomUsers()` - Generate N random users
 
-### macOS/Linux:
+3. **Program Features:**
+   - Accept user count via command line or input
+   - Generate random usernames (10 alphanumeric chars)
+   - Display all users in FIFO order
+   - Proper error handling and memory management
+
+## Files
+- **node.h** - Struct definitions and function declarations
+- **queue.c** - Queue operations implementation
+- **main.c** - Testing program
+
+## Compilation & Usage
+
+**macOS/Linux:**
 ```bash
 gcc main.c queue.c -o game_queue
 ./game_queue 10
 ```
 
-### Windows (Visual Studio):
-1. Open `Asssignment_1_Data.sln`
-2. Build Solution (Ctrl+Shift+B)
-3. Run (F5)
-
-## Usage
-
-### With command line argument:
-```bash
-./game_queue 5
-```
-
-### Interactive mode:
-```bash
-./game_queue
-Enter the number of users to add to the queue: 5
-```
-
-## Output Example
-```
-Queue initialized successfully.
-
-Adding 5 random users to the queue...
-Successfully added 5 users to the queue.
-
-=== Dequeuing all users ===
------------------------------------------------------------
-User #1:
-  Username: a3k5m9x2b7
-  Level:    42
-  Faction:  Blue
------------------------------------------------------------
-User #2:
-  Username: z8p1n4q6y0
-  Level:    15
-  Faction:  Red
------------------------------------------------------------
-...
-
-All users have been dequeued. Queue is now empty.
-```
-
-## Data Structures
-
-### User
-```c
-typedef struct {
-    char    username[11];  // 10 chars + null terminator
-    int     level;         // 1-60
-    Faction faction;       // RED, BLUE, or GREEN
-} User;
-```
-
-### Queue
-```c
-typedef struct {
-    QueueNode* head;  // Front of queue
-    QueueNode* tail;  // Rear of queue
-} Queue;
-```
+**Windows (Visual Studio):**
+Open `Asssignment_1_Data.sln` and build
 
 ## Author
-Ngoc Thanh Thi Nguyen
-
-## Date
-February 2026
+Ngoc Thanh Thi Nguyen - February 2026
