@@ -73,12 +73,12 @@ User #3: Charlie, L:10, GREEN (last in, last out)
 ```
 
 **Key Features Demonstrated:**
-- ✅ **FIFO Ordering**: Users are dequeued in exact enqueue order
-- ✅ **Dynamic Memory**: Queue grows/shrinks with malloc/free
-- ✅ **O(1) Operations**: Both enqueue and dequeue are constant time
-- ✅ **Error Handling**: Validates input and checks memory allocation
-- ✅ **Randomization**: Generates diverse user profiles for testing
-- ✅ **Clean Separation**: Data structures, operations, and testing are well-organized
+- **FIFO Ordering**: Users are dequeued in exact enqueue order
+- **Dynamic Memory**: Queue grows/shrinks with malloc/free
+- **O(1) Operations**: Both enqueue and dequeue are constant time
+- **Error Handling**: Validates input and checks memory allocation
+- **Randomization**: Generates diverse user profiles for testing
+- **Clean Separation**: Data structures, operations, and testing are well-organized
 
 **Use Case Example:**
 In a multiplayer game matchmaking system, this queue ensures:
@@ -184,7 +184,7 @@ typedef struct {
 ```
 
 ## Author
-Student Implementation
+Ngoc Thanh Thi Nguyen
 
 ## Date
 February 2026
